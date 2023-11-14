@@ -16,19 +16,25 @@
       </div>
 
       <div>
-        <label for="country">Country<sup class="required">*</sup></label>
-        <input type="text" name="country" id="country" required />
-      </div>
-
-      <div>
         <label for="zip-code" pattern="(\+\d{1-3})|(\d{1,4})"
-          >Zip Code<sup class="required">*</sup></label
-        >
-        <input type="number" name="zip-code" id="zip-code" required />
+          >Zip Code<sup class="required">*</sup><span class="message"></span
+        ></label>
+        <input type="text" name="zip-code" id="zip-code" required />
       </div>
 
       <div>
-        <label for="password">Password<sup class="required">*</sup></label>
+        <label for="country">Country<sup class="required">*</sup></label>
+        <select id="country">
+          <option value="fr">France</option>
+          <option value="ge">Germany</option>
+          <option value="nl">The Netherland</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="password"
+          >Password<sup class="required">*</sup><span class="message"></span
+        ></label>
         <input type="text" name="password" id="password" required />
       </div>
 
@@ -39,7 +45,7 @@
         <input type="text" name="password-conf" id="password-conf" required />
       </div>
       <p>*required</p>
-      <button type="submit" id="submit-btn">Submit</button>
+      <button type="submit" value="Validate" id="submit-btn">Submit</button>
     </form>
   </body>
 </html>
