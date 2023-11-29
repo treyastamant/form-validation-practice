@@ -13,7 +13,19 @@ const checkFormValidity = () => {
       e.classList.add("invalid");
     } else {
       e.classList.remove("invalid");
-      return true;
+    }
+  };
+
+  const checkPasswordValidity = () => {
+    const passPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+    if (!password.value.match(passPattern)) {
+      console.log("try again");
+      password.setCustomValidity(
+        "Password must be 6 to 20 characters with at least one numeric digit, one uppercase, and one lowercase letter."
+      );
+    } else {
+      password.setCustomValidity("");
+      console.log("you got it");
     }
   };
 
@@ -24,7 +36,6 @@ const checkFormValidity = () => {
     } else {
       confirmPass.setCustomValidity("");
       confirmPass.classList.remove("invalid");
-      return true;
     }
   };
 
@@ -52,7 +63,6 @@ const checkFormValidity = () => {
     } else {
       zipCode.setCustomValidity("");
       zipCode.classList.remove("invalid");
-      return true;
     }
   };
 
@@ -66,29 +76,32 @@ const checkFormValidity = () => {
   });
   password.addEventListener("focusout", () => {
     checkInputs(password);
+    checkPasswordValidity();
   });
   confirmPass.addEventListener("focusout", () => {
     checkInputs(confirmPass);
   });
   submitBtn.addEventListener("click", () => {
-    // checkPasswordMatch();
-    // checkInputs(password);
-    // checkInputs(confirmPass);
-    // checkZip();
-    if (
-      checkPasswordMatch() &&
-      checkInputs(password) &&
-      checkInputs(confirmPass) &&
-      checkZip()
-    ) {
-      confirmSubmit();
-    }
+    checkInputs(password);
+    checkInputs(confirmPass);
+    checkZip();
+    checkPasswordValidity();
+    checkPasswordMatch();
+
+    // if (
+    //   checkPasswordMatch() &&
+    //   checkInputs(password) &&
+    //   checkInputs(confirmPass) &&
+    //   checkZip()
+    // ) {
+    //   confirmSubmit();
+    // }
   });
   window.onload = () => {
     country.onchange = checkZip;
     zipCode.oninput = checkZip;
     confirmPass.oninput = checkPasswordMatch;
-    email.oninput = checkInputs;
+    email.oninput = checkInputs(email);
   };
 };
 
