@@ -82,19 +82,18 @@ const checkFormValidity = () => {
     checkInputs(confirmPass);
   });
   submitBtn.addEventListener("click", () => {
-    checkInputs(password);
-    checkInputs(confirmPass);
-    checkZip();
-    checkPasswordValidity();
-    checkPasswordMatch();
-
+    // checkInputs(password);
+    // checkInputs(confirmPass);
+    // checkZip();
+    // checkPasswordValidity();
+    // checkPasswordMatch();
     // if (
     //   checkPasswordMatch() &&
     //   checkInputs(password) &&
     //   checkInputs(confirmPass) &&
     //   checkZip()
     // ) {
-    //   confirmSubmit();
+    // confirmSubmit();
     // }
   });
   window.onload = () => {
