@@ -5,38 +5,39 @@ const checkFormValidity = () => {
   const zipCode = document.getElementById("zip-code");
   const password = document.getElementById("password");
   const confirmPass = document.getElementById("password-conf");
-  const submitBtn = document.getElementById("submit-btn");
   const country = document.getElementById("country");
 
   const checkInputs = (e) => {
     if (!e.checkValidity()) {
       e.classList.add("invalid");
-    } else {
-      e.classList.remove("invalid");
+      return false;
     }
+    e.classList.remove("invalid");
+    return true;
   };
 
   const checkPasswordValidity = () => {
     const passPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
     if (!password.value.match(passPattern)) {
-      console.log("try again");
       password.setCustomValidity(
         "Password must be 6 to 20 characters with at least one numeric digit, one uppercase, and one lowercase letter."
       );
-    } else {
-      password.setCustomValidity("");
-      console.log("you got it");
+      return false;
     }
+    password.setCustomValidity("");
+    password.classList.remove("invalid");
+    return true;
   };
 
   const checkPasswordMatch = () => {
     if (password.value !== confirmPass.value) {
       confirmPass.setCustomValidity("Passwords don't match, try again!");
       confirmPass.classList.add("invalid");
-    } else {
-      confirmPass.setCustomValidity("");
-      confirmPass.classList.remove("invalid");
+      return false;
     }
+    confirmPass.setCustomValidity("");
+    confirmPass.classList.remove("invalid");
+    return true;
   };
 
   const checkZip = () => {
@@ -60,19 +61,18 @@ const checkFormValidity = () => {
     if (!constraint.test(zipCode.value)) {
       zipCode.setCustomValidity(constraints[country.value][1]);
       zipCode.classList.add("invalid");
-    } else {
-      zipCode.setCustomValidity("");
-      zipCode.classList.remove("invalid");
+      return false;
     }
-  };
-
-  const confirmSubmit = () => {
-    const form = document.querySelector("form");
-    form.style.display = "none";
+    zipCode.setCustomValidity("");
+    zipCode.classList.remove("invalid");
+    return true;
   };
 
   email.addEventListener("focusout", () => {
     checkInputs(email);
+  });
+  zipCode.addEventListener("focusout", () => {
+    checkInputs(zipCode);
   });
   password.addEventListener("focusout", () => {
     checkInputs(password);
@@ -81,26 +81,12 @@ const checkFormValidity = () => {
   confirmPass.addEventListener("focusout", () => {
     checkInputs(confirmPass);
   });
-  submitBtn.addEventListener("click", () => {
-    // checkInputs(password);
-    // checkInputs(confirmPass);
-    // checkZip();
-    // checkPasswordValidity();
-    // checkPasswordMatch();
-    // if (
-    //   checkPasswordMatch() &&
-    //   checkInputs(password) &&
-    //   checkInputs(confirmPass) &&
-    //   checkZip()
-    // ) {
-    // confirmSubmit();
-    // }
-  });
+
   window.onload = () => {
     country.onchange = checkZip;
     zipCode.oninput = checkZip;
     confirmPass.oninput = checkPasswordMatch;
-    email.oninput = checkInputs(email);
+    password.oninput = checkPasswordValidity;
   };
 };
 
